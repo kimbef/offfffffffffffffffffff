@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import { useState } from 'react';
+import { Navigation } from './components/Navigation';
+import { HeroSection } from './components/HeroSection';
+import { VideoShowcase } from './components/VideoShowcase';
+import { BlogPreview } from './components/BlogPreview';
+import { AdContent } from './components/AdContent';
+import { LiveStatus } from './components/LiveStatus';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { AboutPage } from './components/AboutPage.tsx';
+import { VideosPage } from './components/VideosPage';
+import { AdminPage } from './components/AdminPage';
+import { AdminLoginPage } from './components/AdminLoginPage';
+// import { BlogPage } from './components/BlogPage';
+// import { PartnersPage } from './components/PartnersPage';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentPage, setCurrentPage] = useState('home')
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'about':
+        return <AboutPage />
+      case 'videos':
+        return <VideosPage />
+      // case 'blog':
+      //   return <BlogPage />
+      // case 'partners':
+      //   return <PartnersPage />
+      case 'admin':
+        return <AdminPage />
+      case 'admin-login':
+        return <AdminLoginPage />
+      default:
+        return (
+          <>
+            <LiveStatus />
+            <HeroSection />
+            <AdContent position="top" />
+            <VideoShowcase />
+            <BlogPreview />
+            <AdContent position="bottom" />
+          </>
+        )
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ErrorBoundary>
+      <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
+        <Navigation onPageChange={setCurrentPage} />
+        {renderPage()}
+      </main>
+    </ErrorBoundary>
+  );
 }
 
-export default App
+export default App;

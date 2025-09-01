@@ -1,9 +1,5 @@
-"use client"
-
-import { Navigation } from "@/components/navigation"
-import { Play, Eye, Clock, Calendar, Filter, Search, TrendingUp, Clock3, ExternalLink } from "lucide-react"
-import { AdContent } from "@/components/ad-content"
 import { useState } from "react"
+import { Play, Eye, Clock, Calendar, Filter, Search, TrendingUp, Clock3, ExternalLink } from "lucide-react"
 
 interface Video {
   id: string
@@ -35,7 +31,7 @@ const allVideos: Video[] = [
   }
 ]
 
-export default function VideosPage() {
+export const VideosPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null)
 
@@ -53,8 +49,6 @@ export default function VideosPage() {
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
-      <Navigation />
-
       {/* Hero Section */}
       <section className="hero" style={{ padding: '80px 0' }}>
         <div className="container">
@@ -80,8 +74,6 @@ export default function VideosPage() {
           </div>
         </div>
       </section>
-
-      <AdContent position="top" />
 
       {/* Filters and Search */}
       <section style={{ padding: '32px 0', background: 'rgba(45, 55, 72, 0.1)' }}>
